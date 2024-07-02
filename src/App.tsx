@@ -16,6 +16,7 @@ import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 import Tab4 from './pages/Tab4';
+import SearchPage from './pages/SearchPage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -54,6 +55,9 @@ const App: React.FC = () => (
           </Route>
           <Route path="/tab4">
             <Tab4 />
+          </Route>
+          <Route path="/searchpage">
+            <SearchPage />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
