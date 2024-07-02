@@ -1,0 +1,27 @@
+.home-card {
+    width: 60%;
+    /* Adjust the width as needed */
+    margin: 0 auto;
+    /* Center the card horizontally */
+}
+
+.mySwiper{
+    width: 200%;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.badge {
+    position: absolute;
+    top: 10px; 
+    left: 10px; 
+    padding: 5px 10px;
+    background-color: #F4A261;
+    color: white;
+    border-radius: 5px;
+  }
