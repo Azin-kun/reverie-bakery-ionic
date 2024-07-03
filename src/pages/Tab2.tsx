@@ -1,17 +1,44 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonList, IonItem, IonChip, IonLabel } from '@ionic/react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonList, IonItem, IonChip, IonLabel, useIonViewWillEnter } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab2.css';
+import axios from 'axios';
 
 const Tab2: React.FC = () => {
-  const category=[
-    { id: 1, category_name: 'koasong'},
-    { id: 2, category_name: 'kek'},
-    { id: 3, category_name: 'pastri'},
-    { id: 4, category_name: 'bret'},
-    { id: 5, category_name: 'milek'},
-    { id: 6, category_name: 'swit'},
-  ]
+
+  const [category, setCategory] = useState([]);
+  const history = useHistory();
+
+  useIonViewWillEnter(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      history.push('/login');
+    }
+  });
+
+  useEffect(() => {
+    const fetchcategory = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const response = await axios.get('http://localhost:5000/reverie/category', {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setCategory(response.data);
+        }
+      } catch (error: any) {
+        console.error('Error fetching category:', error);
+        if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+          history.push('/login');
+        }
+      }
+    };
+
+    fetchcategory();
+  }, [history]);
+
+
   return (
     <IonPage>
       <IonHeader>
