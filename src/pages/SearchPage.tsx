@@ -1,80 +1,63 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonLabel, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonThumbnail, IonList } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/react';
+import { useLocation, useHistory } from 'react-router-dom'; 
 import './SearchPage.css';
 
+interface Product {
+  name: string;
+  description: string;
+  image: string;
+  price: number;
+  rating: number;
+}
+
 const SearchPage: React.FC = () => {
-  const data = [
-    {
-      title: "koasong",
-      description: "namanya juga koasong",
-      image: "https://ionicframework.com/docs/img/demos/card-media.png"
-    },
-    {
-      title: "kek",
-      description: "enak pas di mam di ultah",
-      image: "https://ionicframework.com/docs/img/demos/card-media.png"
-    },
-    {
-      title: "pasutri",
-      description: "ini impian kalean kan sama si dia",
-      image: "https://ionicframework.com/docs/img/demos/card-media.png"
-    },
-    {
-      title: "kronologi",
-      description: "pokok enak bet dah",
-      image: "https://ionicframework.com/docs/img/demos/card-media.png"
-    },
-    {
-      title: "name",
-      description: "description",
-      image: "https://ionicframework.com/docs/img/demos/card-media.png"
-    },
-    {
-      title: "name",
-      description: "description",
-      image: "https://ionicframework.com/docs/img/demos/card-media.png"
-    },
-  ]
+  const history = useHistory(); 
+  const location = useLocation<{ results: Product[] }>();
+  const data = location.state?.results || [];
+
+  console.log(data); 
+
+  const handleProductClick = (product: Product) => {
+    history.push('/DetailProduct', { product });
+  };
+  
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
+          <IonTitle>Hasil Pencarian</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Account</IonTitle>
+            <IonTitle size="large">Hasil Pencarian</IonTitle>
           </IonToolbar>
         </IonHeader>
         
-        <h2>hasil dari pencarian kamu</h2>
+        <h2>Hasil dari pencarian kamu</h2>
 
-        {data.map(item => {
-          return (
-            <IonCard>
-            <div className='search-card'> 
-                <img 
-                    src={item.image} 
-                    alt={item.title}
-                />
-                <div>
-                    <IonCardHeader>
-                        <IonCardTitle>{item.title}</IonCardTitle>
-                        <IonCardSubtitle>{item.title}</IonCardSubtitle> 
-                    </IonCardHeader>
-                    <IonCardContent>
-                        <p>Price: {item.title}</p>
-                        <p>Rating: 5</p> 
-                    </IonCardContent>
-                </div>
+        {data.length > 0 ? data.map((item, index) => (
+          <IonCard key={index} onClick={() => handleProductClick(item)}>
+            <div className='search-card'>
+              <img
+                src={`http://localhost:5000/image/${item.image}`}
+                alt={item.name}
+              />
+              <div>
+                <IonCardHeader>
+                  <IonCardTitle>{item.name}</IonCardTitle>
+                  <IonCardSubtitle>{item.description}</IonCardSubtitle>
+                </IonCardHeader>
+                <IonCardContent>
+                  <p>Price: {item.price}</p>
+                  <p>Rating: {item.rating}</p>
+                </IonCardContent>
+              </div>
             </div>
-        </IonCard>
-          )
-        })}
-
+          </IonCard>
+        )) : <p>No results found</p>}
       </IonContent>
     </IonPage>
   );

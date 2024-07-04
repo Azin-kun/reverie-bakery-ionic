@@ -1,4 +1,3 @@
-// src/pages/Tab1.tsx
 import React, { useEffect, useState } from 'react';
 import {
   IonContent,
@@ -54,6 +53,10 @@ const Tab1: React.FC = () => {
     fetchProducts();
   }, [history]);
 
+  const handleProductClick = (product: any) => {
+    history.push('/DetailProduct', { product });
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -87,7 +90,7 @@ const Tab1: React.FC = () => {
         <Swiper slidesPerView={1} navigation={true} modules={[Navigation]}>
           {products.map((product: any, index: number) => (
             <SwiperSlide key={index} className="offer">
-              <IonCard className="card-container">
+              <IonCard className="card-container" onClick={() => handleProductClick(product)}>
                 <div className="card-text">
                   <IonCardHeader>
                     <IonCardTitle>{product.name}</IonCardTitle>
@@ -106,7 +109,7 @@ const Tab1: React.FC = () => {
         <Swiper slidesPerView={3} spaceBetween={2} pagination={{ clickable: true }} className="mySwiper">
           {products.map((product: any, index: number) => (
             <SwiperSlide key={index}>
-              <IonCard>
+              <IonCard onClick={() => handleProductClick(product)}>
                 <IonCardHeader>
                   <span className="badge">{product.rating}</span>
                   <img src={`http://localhost:5000/image/${product.image}`} alt={product.name} />
@@ -122,7 +125,7 @@ const Tab1: React.FC = () => {
         <Swiper slidesPerView={3} spaceBetween={2} pagination={{ clickable: true }} className="mySwiper">
           {products.map((product: any, index: number) => (
             <SwiperSlide key={index}>
-              <IonCard>
+              <IonCard onClick={() => handleProductClick(product)}>
                 <IonCardHeader>
                   <span className="badge">{product.rating}</span>
                   <img src={`http://localhost:5000/image/${product.image}`} alt={product.name} />

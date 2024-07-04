@@ -17,6 +17,7 @@ import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 import Tab4 from './pages/Tab4';
 import SearchPage from './pages/SearchPage';
+import DetailProduct from './pages/DetailProduct';
 import Login from './pages/Login';
 
 /* Core CSS required for Ionic components to work properly */
@@ -48,7 +49,7 @@ const App: React.FC = () => (
           <Route exact path="/tab1">
             <Tab1 />
           </Route>
-          <Route exact path="/tab2">
+          <Route path="/tab2">
             <Tab2 />
           </Route>
           <Route path="/tab3">
@@ -56,6 +57,9 @@ const App: React.FC = () => (
           </Route>
           <Route path="/tab4">
             <Tab4 />
+          </Route>
+          <Route path="/detailproduct">
+            <DetailProduct />
           </Route>
           <Route path="/searchpage">
             <SearchPage />
