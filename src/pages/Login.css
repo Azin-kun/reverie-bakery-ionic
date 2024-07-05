@@ -1,8 +1,52 @@
 
-.login-container {
+.login-logo {
+  width: 100px; /* Adjust the width of the logo */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 20px; /* Example margin for spacing */
+  display: block; /* Ensure the logo is displayed as a block element */
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+}
+
+.Login-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+.Login-container form {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.Login-container ion-header {
+  width: 100%;
+  text-align: center;
+}
+
+.Login-container ion-item {
+  margin-bottom: 20px;
+}
+
+.Login-container ion-label {
+  color: #666;
+}
+
+.Login-container ion-input {
+  --placeholder-color: #aaa;
+}
+
+.Login-container ion-button {
+  --background: var(--ion-color-primary);
+  --background-hover: var(--ion-color-primary-shade);
+  --background-activated: var(--ion-color-primary-tint);
+  --border-radius: 5px;
 }

@@ -1,4 +1,3 @@
-// src/pages/Login.tsx
 import React, { useState } from 'react';
 import {
   IonContent,
@@ -10,15 +9,25 @@ import {
   IonLabel,
   IonInput,
   IonButton,
-  useIonViewWillEnter
-} from '@ionic/react';
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonImg,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+} from '@ionic/react'; // Import IonCardContent only once
+
 import { useHistory } from 'react-router-dom';
+import { lockClosedOutline, mailOutline } from 'ionicons/icons';
 import axios from 'axios';
 import './Login.css';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
   const history = useHistory();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -33,57 +42,60 @@ const Login: React.FC = () => {
         localStorage.setItem('token', token);
         history.push('/tab1');
       } else {
-        console.error('Token is undefined');
+        setError('Token is undefined');
       }
     } catch (error) {
-      console.error('Login error:', error);
+      setError('Login error');
     }
   };
 
-  useIonViewWillEnter(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      history.push('/tab1');
-    }
-  });
-
   return (
     <IonPage>
-      <IonContent>
-        <div className="Login-container">
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>Login</IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          <form onSubmit={handleLogin}>
-            <IonItem>
-              <IonLabel position="floating">email</IonLabel>
-              <IonInput
-                type="text"
-                value={email}
-                onIonChange={(e) => setEmail(e.detail.value!)}
-              ></IonInput>
-            </IonItem>
+      <IonContent className="ion-padding">
+        <IonGrid className="ion-text-center">
+          <IonRow>
+            <IonCol size="12">
+              <IonImg className="login-logo" src="/assets/logo.png" alt="Logo" />
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol size="12">
+              <IonCard className="login-card">
+                <IonCardHeader>
+                  <IonCardTitle>Login</IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent>
+                  <form onSubmit={handleLogin}>
+                    <IonItem>
+                      <IonLabel position="floating">Email</IonLabel>
+                      <IonInput
+                        type="text"
+                        value={email}
+                        onIonChange={(e) => setEmail(e.detail.value!)}
+                      ></IonInput>
+                    </IonItem>
 
-            <IonItem>
-              <IonLabel position="floating">Password</IonLabel>
-              <IonInput
-                type="password"
-                value={password}
-                onIonChange={(e) => setPassword(e.detail.value!)}
-              ></IonInput>
-            </IonItem>
+                    <IonItem>
+                      <IonLabel position="floating">Password</IonLabel>
+                      <IonInput
+                        type="password"
+                        value={password}
+                        onIonChange={(e) => setPassword(e.detail.value!)}
+                      ></IonInput>
+                    </IonItem>
 
-            <IonButton type="submit" expand="block">
-              Login
-            </IonButton>
-          </form>
-        </div>
+                    <IonButton type="submit" expand="block">
+                      Login
+                    </IonButton>
+                  </form>
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
 };
 
 export default Login;
- 
